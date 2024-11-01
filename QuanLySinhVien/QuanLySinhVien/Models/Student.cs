@@ -1,14 +1,17 @@
 ﻿namespace QuanLySinhVien;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-public class Student
+public partial class Student : ObservableObject
 {
     [Key]
-    public int Id { get; set; }
+    public int Id {get; set;}
     public string? MSSV {get; set; }
-    public string? Name { get; set; }
-    public DateTime BirthDate { get; set; } 
+
+    public string? Name {get; set; }
+
+    public DateTime Birthday {get; set; }
 
     [ForeignKey("Class")]
     public int ClassId { get; set; }

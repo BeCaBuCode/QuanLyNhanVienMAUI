@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:QuanLySinhVien"
+             xmlns:vm="clr-namespace:QuanLySinhVien"
              x:Class="QuanLySinhVien.MainPage">
     <VerticalStackLayout>
 
@@ -18,21 +20,20 @@
             <Label Text="Mã Lớp" FontAttributes="Bold" />
             <Label Text="Tên lớp" FontAttributes="Bold" Grid.Column="1" />
         </Grid>
-        <ListView x:Name="ClassListView" ItemTapped="OnClassSelected">
+        <ListView x:Name="ClassListView" ItemsSource="{Binding ClassItems}" ItemTapped="OnClassSelected" HeightRequest="400">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <HorizontalStackLayout Padding="10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Text="{Binding ClassId}" FontSize="Medium"/>
-                                <Label Text="{Binding ClassName}" FontSize="Medium" Grid.Column="1"/>
-                            </Grid>
-                            <CheckBox x:Name="cb_Class" IsChecked="{Binding IsSelected}" />
-                        </HorizontalStackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Classvm.ClassCode}" FontSize="Medium" Padding="10,0,0,0" />
+                            <Label Text="{Binding Classvm.Name}" FontSize="Medium" Grid.Column="1"/>
+                            <CheckBox x:Name="cb_Class" IsChecked="{Binding IsSelected}" Grid.Column="2" MaximumWidthRequest="50"/>
+                        </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

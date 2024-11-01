@@ -1,11 +1,15 @@
 ﻿namespace QuanLySinhVien;
 using System.ComponentModel.DataAnnotations;
+using CommunityToolkit.Mvvm.ComponentModel;
 
-public class Class
+public partial class Class:ObservableObject
 {
     [Key]
-    public int ClassId { get; set; }
-    public string? MaSo {get; set; }
-    public string? Name { get; set; }
+    [ObservableProperty]
+    private int classId ;
+    [ObservableProperty]
+    private string? classCode;
+    [ObservableProperty]
+    private string? name;
 
 }

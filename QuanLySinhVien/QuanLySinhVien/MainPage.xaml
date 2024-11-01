@@ -45,9 +45,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btn_add" Text="Thêm Lớp" Clicked="OnAddClassClicked" />
-            <Button x:Name="btn_fix" Text="Sửa Lớp" Clicked="OnEditClassClicked" Grid.Column="1"/>
-            <Button x:Name="btn_del" Text="Xóa Lớp" Clicked="OnDeleteClassClicked" Grid.Column="2"/>
+            <Button x:Name="btn_add" Text="Thêm Lớp" Clicked="OnAddClassClicked" MaximumWidthRequest="100"/>
+            <Button x:Name="btn_fix" Text="Sửa Lớp" Clicked="OnEditClassClicked" Grid.Column="1" MaximumWidthRequest="100"/>
+            <Button x:Name="btn_del" Text="Xóa Lớp" Clicked="OnDeleteClassClicked" Grid.Column="2" MaximumWidthRequest="100"/>
         </Grid>
 
     </VerticalStackLayout>

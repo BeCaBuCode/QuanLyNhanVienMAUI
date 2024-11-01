@@ -6,12 +6,14 @@ using CommunityToolkit.Mvvm.ComponentModel;
 public partial class Student : ObservableObject
 {
     [Key]
-    public int Id {get; set;}
-    public string? MSSV {get; set; }
-
-    public string? Name {get; set; }
-
-    public DateTime Birthday {get; set; }
+    [ObservableProperty]
+    private int id;
+    [ObservableProperty]
+    private string? mSSV;
+    [ObservableProperty]
+    private string? name;
+    [ObservableProperty]
+    private DateTime birthday;
 
     [ForeignKey("Class")]
     public int ClassId { get; set; }

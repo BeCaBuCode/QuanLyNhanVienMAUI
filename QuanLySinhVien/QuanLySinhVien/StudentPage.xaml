@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:QuanLySinhVien"
+             xmlns:vm="clr-namespace:QuanLySinhVien"
              x:Class="QuanLySinhVien.StudentPage">
-    
+    <VerticalStackLayout>
+        <Label Text="Danh sách học sinh" FontSize="Large" />
+        <Grid Padding="10" Margin="0,5" RowSpacing="5"> 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Mã HS" FontAttributes="Bold" HorizontalOptions="Center" />
+            <Label Text="Họ Tên" FontAttributes="Bold" HorizontalOptions="Center" Grid.Column="1" />
+            <Label Text="Ngày Sinh" FontAttributes="Bold" HorizontalOptions="Center" Grid.Column="2" />
+        </Grid>
+
+        <ListView x:Name="StudentListView" ItemsSource="{Binding Students}" ItemTapped="OnStudentSelected" HeightRequest="400">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10" Margin="0,5" RowSpacing="5" Width="300">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding MSSV}" HorizontalOptions="Center" />
+                            <Label Text="{Binding Name}" HorizontalOptions="Center" Grid.Column="1" />
+                            <Label Text="{Binding Birthday, StringFormat='{0:dd/MM/yyyy}'}" HorizontalOptions="Center" Grid.Column="2" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Text="Thêm Học Sinh" Clicked="OnAddStudentClicked" MaximumWidthRequest="150"/>
+            <Button Text="Sửa Học Sinh" Clicked="OnEditStudentClicked" Grid.Column="1" MaximumWidthRequest="150"/>
+            <Button Text="Xóa Học Sinh" Clicked="OnDeleteStudentClicked" Grid.Column="2" MaximumWidthRequest="150"/>
+        </Grid>
+    </VerticalStackLayout>
 </ContentPage>

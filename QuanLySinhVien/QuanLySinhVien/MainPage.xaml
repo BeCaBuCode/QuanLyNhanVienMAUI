@@ -2,5 +2,52 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="QuanLySinhVien.MainPage">
+    <VerticalStackLayout>
 
+        <Label x:Name="lb_Path" Text="Nhập đường dẫn file .db" FontSize="Medium" />
+        <Entry x:Name="en_DbPathEntry" Placeholder="Đường dẫn file .db" />
+        <Button x:Name="btn_Confirm" Text="Xác nhận" Clicked="OnConfirmDbPathClicked" />
+
+        <Label x:Name="lb_ClassList" Text="Danh sách lớp" FontSize="Large" />
+        <Grid x:Name="gr_lb_name" Padding="10"> 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Mã Lớp" FontAttributes="Bold" />
+            <Label Text="Tên lớp" FontAttributes="Bold" Grid.Column="1" />
+        </Grid>
+        <ListView x:Name="ClassListView" ItemTapped="OnClassSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <HorizontalStackLayout Padding="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding ClassId}" FontSize="Medium"/>
+                                <Label Text="{Binding ClassName}" FontSize="Medium" Grid.Column="1"/>
+                            </Grid>
+                            <CheckBox x:Name="cb_Class" IsChecked="{Binding IsSelected}" />
+                        </HorizontalStackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btn_add" Text="Thêm Lớp" Clicked="OnAddClassClicked" />
+            <Button x:Name="btn_fix" Text="Sửa Lớp" Clicked="OnEditClassClicked" Grid.Column="1"/>
+            <Button x:Name="btn_del" Text="Xóa Lớp" Clicked="OnDeleteClassClicked" Grid.Column="2"/>
+        </Grid>
+
+    </VerticalStackLayout>
 </ContentPage>

@@ -69,7 +69,7 @@ public partial class MainPage : ContentPage
             return;
         }
         Class selectedClass=new Class();
-		int index=0;
+		int index=-1;
 		for (int i=classViewModel.ClassItems.Count-1;i>=0;i--)
 		{
 			if (classViewModel.ClassItems[i].IsSelected)
@@ -79,7 +79,7 @@ public partial class MainPage : ContentPage
 				break;
 			}
 		}
-    	if (selectedClass != null)
+    	if (index!=-1)
     	{
 			string newClassCode = await DisplayPromptAsync("Sửa Lớp", "Nhập mã lớp mới:", initialValue: selectedClass.ClassCode);
         	string newClassName = await DisplayPromptAsync("Sửa Lớp", "Nhập tên lớp mới:", initialValue: selectedClass.Name);
@@ -140,5 +140,11 @@ public partial class MainPage : ContentPage
         btn_del.IsVisible=false;
         btn_fix.IsVisible=false;
 	}
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+		ClassListView.SelectedItem=null;
+		classViewModel.ClassItems.ToList().ForEach(classItem => classItem.IsSelected = false);
+    }
 }
 

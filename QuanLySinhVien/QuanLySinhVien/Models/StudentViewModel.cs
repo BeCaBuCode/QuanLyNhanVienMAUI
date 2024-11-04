@@ -6,5 +6,6 @@ namespace QuanLySinhVien;
 public partial class StudentViewModel:ObservableObject
 {
     [ObservableProperty]
-    private ObservableCollection<Student> students = new ObservableCollection<Student>();
+    private ObservableCollection<Student> students = [];
+    //new ObservableCollection<Student>()
 }

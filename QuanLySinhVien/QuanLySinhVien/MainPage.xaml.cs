@@ -5,8 +5,8 @@ namespace QuanLySinhVien;
 public partial class MainPage : ContentPage
 {
 	private ClassViewModel classViewModel;
-	private string? dbPath;
-	private AppDbContext? dbContext;
+	public required string dbPath;
+	public required AppDbContext dbContext;
 	public MainPage()
 	{
 		InitializeComponent();
@@ -55,10 +55,14 @@ public partial class MainPage : ContentPage
         if (!string.IsNullOrWhiteSpace(className) && !string.IsNullOrWhiteSpace(classCode))
         {
             var newClass = new Class { Name = className , ClassCode = classCode };
-            dbContext?.Classes.Add(newClass);
-            dbContext?.SaveChanges();
+            dbContext.Classes.Add(newClass);
+            dbContext.SaveChanges();
 			classViewModel.ClassItems.Add(new ClassItem (newClass,false));
         }
+		else
+		{
+			await DisplayAlert("Thông tin không hợp lệ","Vui lòng điền đầy đủ thông tin","OK");
+		}
     }
 	private async void OnEditClassClicked(object sender, EventArgs e)
     {
@@ -83,13 +87,18 @@ public partial class MainPage : ContentPage
     	{
 			string newClassCode = await DisplayPromptAsync("Sửa Lớp", "Nhập mã lớp mới:", initialValue: selectedClass.ClassCode);
         	string newClassName = await DisplayPromptAsync("Sửa Lớp", "Nhập tên lớp mới:", initialValue: selectedClass.Name);
-        	if (!string.IsNullOrWhiteSpace(newClassName))
+        	if (!string.IsNullOrWhiteSpace(newClassName) && !string.IsNullOrWhiteSpace(newClassCode))
         	{
 				classViewModel.ClassItems[index].Classvm.ClassCode=newClassCode;
 				classViewModel.ClassItems[index].Classvm.Name=newClassName;
-            	dbContext?.Classes.Update(selectedClass);
-            	dbContext?.SaveChanges();
+            	dbContext.Classes.Update(selectedClass);
+            	dbContext.SaveChanges();
         	}
+			else
+			{
+				await DisplayAlert("Thông tin không hợp lệ","Vui lòng điền đầy đủ thông tin","OK");
+			}
+			classViewModel.ClassItems[index].IsSelected=false;
     	}
     	else
     	{
@@ -97,20 +106,24 @@ public partial class MainPage : ContentPage
     	}
 
     }
-	private void OnDeleteClassClicked(object sender, EventArgs e)
+	private async void OnDeleteClassClicked(object sender, EventArgs e)
     {
-		for (int i=classViewModel.ClassItems.Count-1;i>=0;i--)
+		bool confirm = await DisplayAlert("Xóa Học Sinh", $"Bạn có chắc chắn muốn xóa các lớp đã được chọn?", "Yes", "No");
+		if (confirm)
 		{
-			if (classViewModel.ClassItems[i].IsSelected)
+			for (int i=classViewModel.ClassItems.Count-1;i>=0;i--)
 			{
-				var studentsToDelete = dbContext?.Students.Where(s => s.ClassId == classViewModel.ClassItems[i].Classvm.ClassId).ToList();
-        		foreach (var student in studentsToDelete ?? Enumerable.Empty<Student>())
-        		{
-            		dbContext?.Students.Remove(student);
-        		}
-        		dbContext?.Classes.Remove(classViewModel.ClassItems[i].Classvm);
-				dbContext?.SaveChanges();
-				classViewModel.ClassItems.RemoveAt(i);
+				if (classViewModel.ClassItems[i].IsSelected)
+				{
+					var studentsToDelete = dbContext?.Students.Where(s => s.ClassId == classViewModel.ClassItems[i].Classvm.ClassId).ToList();
+        			foreach (var student in studentsToDelete ?? Enumerable.Empty<Student>())
+        			{
+        	    		dbContext?.Students.Remove(student);
+        			}
+        			dbContext?.Classes.Remove(classViewModel.ClassItems[i].Classvm);
+					dbContext?.SaveChanges();
+					classViewModel.ClassItems.RemoveAt(i);
+				}
 			}
 		}
     }

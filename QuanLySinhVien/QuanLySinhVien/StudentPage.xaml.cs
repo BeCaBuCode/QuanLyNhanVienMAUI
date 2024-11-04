@@ -35,6 +35,10 @@ public partial class StudentPage : ContentPage
             dbContext.SaveChanges();
             studentViewModel.Students.Add(newStudent);
         }
+        else
+		{
+			await DisplayAlert("Thông tin không hợp lệ","Vui lòng điền đầy đủ thông tin","OK");
+		}
     }
 
     private async void OnEditStudentClicked(object sender, EventArgs e)
@@ -57,6 +61,10 @@ public partial class StudentPage : ContentPage
             dbContext.Students.Update(_selectedStudent);
             dbContext.SaveChanges();
         }
+        else
+		{
+			await DisplayAlert("Thông tin không hợp lệ","Vui lòng điền đầy đủ thông tin","OK");
+		}
     }
 
     private async void OnDeleteStudentClicked(object sender, EventArgs e)

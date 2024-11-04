@@ -9,9 +9,9 @@ public partial class Student : ObservableObject
     [ObservableProperty]
     private int id;
     [ObservableProperty]
-    private string? mSSV;
+    private string mSSV="";
     [ObservableProperty]
-    private string? name;
+    private string name="";
     [ObservableProperty]
     private DateTime birthday;
 

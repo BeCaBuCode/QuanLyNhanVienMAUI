@@ -8,8 +8,7 @@ public partial class Class:ObservableObject
     [ObservableProperty]
     private int classId ;
     [ObservableProperty]
-    private string? classCode;
+    private  string classCode = "";
     [ObservableProperty]
-    private string? name;
-
+    private string name="";
 }

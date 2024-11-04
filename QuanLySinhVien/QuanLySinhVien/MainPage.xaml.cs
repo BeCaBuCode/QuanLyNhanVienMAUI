@@ -20,10 +20,10 @@ public partial class MainPage : ContentPage
         {
             dbPath = en_DbPathEntry.Text;
             if (string.IsNullOrWhiteSpace(dbPath))
-                {
-                    await DisplayAlert("Lỗi", "Vui lòng nhập đường dẫn hợp lệ.", "OK");
-                    return;
-                }
+            {
+                await DisplayAlert("Lỗi", "Vui lòng nhập đường dẫn hợp lệ.", "OK");
+                return;
+            }
             dbContext = new AppDbContext(dbPath);
             dbContext.Database.EnsureCreated();
 			LoadClasses();
@@ -70,6 +70,7 @@ public partial class MainPage : ContentPage
 		if (count > 1)
         {
             await DisplayAlert("Lỗi","Vui lòng chỉ chọn 1 lớp","OK");
+			classViewModel.ClassItems.ToList().ForEach(classItem => classItem.IsSelected = false);
             return;
         }
         Class selectedClass=new Class();
